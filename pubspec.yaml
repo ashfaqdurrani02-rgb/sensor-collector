@@ -1,0 +1,51 @@
+name: sensor_collector
+description: Indoor Room RF & Sensor Telemetry Collector App
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # WiFi scanning
+  wifi_scan: ^0.4.1
+
+  # BLE scanning
+  flutter_blue_plus: ^1.31.15
+
+  # Sensors (magnetometer, accelerometer, gyroscope)
+  sensors_plus: ^4.0.2
+
+  # Battery
+  battery_plus: ^5.0.3
+
+  # HTTP & WebSocket
+  http: ^1.2.1
+  web_socket_channel: ^2.4.0
+
+  # State management
+  provider: ^6.1.2
+
+  # Config persistence
+  shared_preferences: ^2.2.3
+
+  # Permission handler
+  permission_handler: ^11.3.1
+
+  # Device info
+  device_info_plus: ^10.1.0
+
+  # Icons
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
