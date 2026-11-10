@@ -186,7 +186,7 @@ class SensorProvider extends ChangeNotifier {
   // ── BLE ───────────────────────────────────────────────────
   void _startBleStream() {
     try {
-      _bleSub = FlutterBluePlus.onScanResults.listen((results) {
+      _bleSub = FlutterBluePlus.scanResults.listen((results) {
         for (final r in results) {
           final adv  = r.advertisementData;
           final uuid = adv.serviceUuids.isNotEmpty
