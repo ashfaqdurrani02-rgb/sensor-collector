@@ -34,19 +34,22 @@ jobs:
       - name: Flutter version info
         run: flutter --version
 
-      # ── 5. Generate missing Gradle wrapper & Android assets ───
+      # ── 5. Cleanly Scaffold Official Android Files ────────────
       - name: Initialize Android Scaffolding
         run: |
-          # Back up custom AndroidManifest.xml
+          # 1. Back up custom files
+          cp pubspec.yaml /tmp/pubspec.yaml
           cp android/app/src/main/AndroidManifest.xml /tmp/AndroidManifest.xml
           
-          # Generate official Gradle wrapper, launcher icons, and gradle configs
-          flutter create --platforms=android --org com.example .
+          # 2. Re-create clean Android project with valid package name (hyphens not allowed in project-name)
+          rm -rf android
+          flutter create --platforms=android --org com.example --project-name sensor_collector .
           
-          # Restore our custom AndroidManifest.xml with all sensor permissions
+          # 3. Restore custom files
+          cp /tmp/pubspec.yaml pubspec.yaml
           cp /tmp/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
           
-          # Set minSdk to 23 (required for BLE and modern Wi-Fi scanning)
+          # 4. Set minSdk to 23 (required for BLE and modern Wi-Fi scanning)
           find android/app -name "build.gradle*" -exec sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 23/g' {} + || true
           find android/app -name "build.gradle*" -exec sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 23/g' {} + || true
           find android/app -name "build.gradle*" -exec sed -i 's/minSdkVersion 21/minSdkVersion 23/g' {} + || true
